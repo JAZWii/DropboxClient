@@ -18,6 +18,12 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java/resources</directory>
+                <targetPath>src/main/java/resources</targetPath>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>

@@ -7,7 +7,6 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.users.FullAccount;
-import com.dropbox.core.json.JsonReader;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -16,8 +15,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DropboxClient {
     private static final String ACCESS_TOKEN = "R4Lp_bVT52AAAAAAAAAAfvfSgBWmA2EjIM83OChH19jcmknApCod7bRaBj6kQYEE";
@@ -58,19 +55,9 @@ public class DropboxClient {
         }
 
         // Upload "test.txt" to Dropbox
-        try (InputStream in = new FileInputStream("C:\\Users\\Restec2019\\Desktop\\test.txt")) {
+        try (InputStream in = new FileInputStream("src/main/java/resources/test.txt")) {
             FileMetadata metadata = clientV2.files().uploadBuilder("/test.txt")
                     .uploadAndFinish(in);
-        }
-
-        File inputFile = new File("C:\\Users\\Restec2019\\Desktop\\test.txt");
-        FileInputStream inputStream = new FileInputStream(inputFile);
-        try {
-            DbxEntry.File uploadedFile = clientV1.uploadFile("C:\\Users\\Restec2019\\Desktop\\test.txt",
-                    DbxWriteMode.add(), inputFile.length(), inputStream);
-            System.out.println("Uploaded: " + uploadedFile.toString());
-        } finally {
-            inputStream.close();
         }
 
         //---------------------------------------
