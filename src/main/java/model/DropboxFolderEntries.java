@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DropboxFolderEntries {
@@ -45,5 +46,14 @@ public class DropboxFolderEntries {
 
     public void setHasMore(boolean hasMore) {
         this.hasMore = hasMore;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder print = new StringBuilder();
+
+        for(DropboxMetadata dropboxMetadata : entries)
+            print.append("- ").append(dropboxMetadata.toString()).append("\n");
+        return print.toString();
     }
 }

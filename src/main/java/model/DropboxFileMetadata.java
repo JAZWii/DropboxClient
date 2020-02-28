@@ -2,6 +2,12 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.net.FileNameMap;
+import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class DropboxFileMetadata extends DropboxMetadata{
 
     @JsonProperty("client_modified")
@@ -25,8 +31,8 @@ public class DropboxFileMetadata extends DropboxMetadata{
     public DropboxFileMetadata() {
     }
 
-    public DropboxFileMetadata(String tag, String name, String pathLower, String pathDisplay, String id, String clientModified, String serverModified, String rev, int size, boolean isDownloadable, String contentHash) {
-        super(tag, name, pathLower, pathDisplay, id);
+    public DropboxFileMetadata(String name, String pathLower, String pathDisplay, String id, String clientModified, String serverModified, String rev, int size, boolean isDownloadable, String contentHash) {
+        super(name, pathLower, pathDisplay, id);
         this.clientModified = clientModified;
         this.serverModified = serverModified;
         this.rev = rev;
@@ -85,7 +91,18 @@ public class DropboxFileMetadata extends DropboxMetadata{
 
     @Override
     public String toString() {//todo file type
-        return "file, "+ convertSize(this.getSize()) +", text/x-java, modified at: \""+ this.clientModified+"\"";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = "";
+        try {
+            date = simpleDateFormat.format(format.parse(clientModified.replace('T', ' ').substring(0, clientModified.length() - 1)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        FileNameMap fileNameMap = URLConnection.getFileNameMap();
+        String mimeType = fileNameMap.getContentTypeFor(getName());
+
+        return "file, " + convertSize(this.getSize()) + ", " + (mimeType == null ? "Unknown/type" : mimeType)  + ", modified at: \"" + date + "\"";
     }
 
     private String convertSize(int size){

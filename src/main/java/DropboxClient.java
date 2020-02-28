@@ -6,7 +6,7 @@ public class DropboxClient {
 
     public static void main(String[] args) throws DbxException, IOException {
         Service service = new Service();
-        service.getListFolder(args);
+        service.getMetadata(args);
         
         if(args.length > 0){
             //Service service = new Service();

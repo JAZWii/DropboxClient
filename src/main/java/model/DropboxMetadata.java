@@ -13,9 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = DropboxFileMetadata.class, name = "file")
 })
 public abstract class DropboxMetadata {
-    @JsonProperty(".tag")
-    private String tag;
-
     @JsonProperty("name")
     private String name;
 
@@ -31,20 +28,11 @@ public abstract class DropboxMetadata {
     public DropboxMetadata() {
     }
 
-    public DropboxMetadata(String tag, String name, String pathLower, String pathDisplay, String id) {
-        this.tag = tag;
+    public DropboxMetadata(String name, String pathLower, String pathDisplay, String id) {
         this.name = name;
         this.pathLower = pathLower;
         this.pathDisplay = pathDisplay;
         this.id = id;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 import com.dropbox.core.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.DropboxAccount;
+import model.DropboxFileMetadata;
 import model.DropboxFolderEntries;
 import model.DropboxMetadata;
 import org.apache.http.HttpResponse;
@@ -19,7 +20,7 @@ import java.io.InputStreamReader;
 import java.util.Locale;
 
 public class Service {
-    private static final String ACCESS_TOKEN = "Bearer R4Lp_bVT52AAAAAAAAAAmdwkwfoPXgP-5L0hlFKx-Ai6CEmOqxW9S7st4GOUGfpH";
+    private static final String ACCESS_TOKEN = "Bearer R4Lp_bVT52AAAAAAAAAAoFQ3BsIgYTL4RJaHLBYXTY0UURqAjsuDSAkVbssAFr6f";
     private static final String APP_KEY = "3bkk0iniclu9a0x";
     private static final String APP_SECRET = "gwhz0y5n1fislqg";
 
@@ -109,10 +110,11 @@ public class Service {
                 String jsonString = EntityUtils.toString(response.getEntity());
 
                 ObjectMapper mapper = new ObjectMapper();
-                mapper.enableDefaultTyping();
+                mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.JAVA_LANG_OBJECT);
                 DropboxFolderEntries folderEntries = mapper.readValue(jsonString, DropboxFolderEntries.class);
 
-                System.out.println(folderEntries);
+                System.out.print("/Docs : dir");//System.out.print(parameters[2] + " : dir");
+                System.out.print(folderEntries);
             }
             else
                 System.out.println("Error\n" + response.getEntity());
@@ -149,9 +151,9 @@ public class Service {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.enableDefaultTyping();
-                DropboxMetadata dropboxMetadata = mapper.readValue(jsonString, DropboxMetadata.class);
+                DropboxFileMetadata dropboxFileMetadata = mapper.readValue(jsonString, DropboxFileMetadata.class);
 
-                System.out.println(dropboxMetadata);
+                System.out.println(dropboxFileMetadata);
             }
             else
                 System.out.println("Error\n" + response.getEntity());
