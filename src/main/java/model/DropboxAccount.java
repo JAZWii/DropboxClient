@@ -155,7 +155,7 @@ public class DropboxAccount {
 
     @Override
     public String toString() {
-        return  "User ID: " + accountId + "\n" +
+        return "User ID: " + accountId + "\n" +
                 "Display name: " + name.getDisplayName() + "\n" +
                 "Name: " + name.getGivenName() + " " + name.getSurname() + " (" + name.getFamiliarName() + ")\n" +
                 "E-mail: " + email + " (" + (emailVerified ? "verified)" : "not verified)") + ")\n" +

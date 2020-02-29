@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DropboxFileMetadata extends DropboxMetadata{
+public class DropboxFileMetadata extends DropboxMetadata {
 
     @JsonProperty("client_modified")
     private String clientModified;
@@ -102,24 +102,24 @@ public class DropboxFileMetadata extends DropboxMetadata{
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(getName());
 
-        return "file, " + convertSize(this.getSize()) + ", " + (mimeType == null ? "Unknown/type" : mimeType)  + ", modified at: \"" + date + "\"";
+        return "file, " + convertSize(getSize()) + ", " + (mimeType == null ? "Unknown/type" : mimeType) + ", modified at: \"" + date + "\"";
     }
 
-    private String convertSize(int size){
+    private String convertSize(int size) {
         String sizeType = " Byte";
-        if(size >= 1024) {
+        if (size >= 1024) {
             size /= 1024;
             sizeType = " KB";
         }
-        if(size >= 1024) {
+        if (size >= 1024) {
             size /= 1024;
             sizeType = " MG";
         }
-        if(size >= 1024) {
+        if (size >= 1024) {
             size /= 1024;
             sizeType = " GB";
         }
-        if(size >= 1024) {
+        if (size >= 1024) {
             size /= 1024;
             sizeType = " TB";
         }

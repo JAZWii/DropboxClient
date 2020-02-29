@@ -1,7 +1,5 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class DropboxFolderMetadata extends DropboxMetadata {
     public DropboxFolderMetadata() {
     }
@@ -12,6 +10,6 @@ public class DropboxFolderMetadata extends DropboxMetadata {
 
     @Override
     public String toString() {
-        return getPathLower().substring(getPathLower().lastIndexOf('/')) +" : dir";
+        return getPathLower().substring(getPathLower().lastIndexOf('/') + 1) + " : dir";
     }
 }

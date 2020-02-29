@@ -6,7 +6,8 @@ public class accountType {
     @JsonProperty(".tag")
     private String tag;
 
-    public accountType() { }
+    public accountType() {
+    }
 
     public accountType(String tag) {
         this.tag = tag;
