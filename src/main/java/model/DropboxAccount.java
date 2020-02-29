@@ -89,7 +89,7 @@ public class DropboxAccount {
         this.emailVerified = emailVerified;
     }
 
-    public String getProfile_photo_url() {
+    public String getProfilePhotoUrl() {
         return profilePhotoUrl;
     }
 

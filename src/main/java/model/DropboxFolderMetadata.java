@@ -10,6 +10,6 @@ public class DropboxFolderMetadata extends DropboxMetadata {
 
     @Override
     public String toString() {
-        return getPathLower().substring(getPathLower().lastIndexOf('/') + 1) + " : dir";
+        return getPathDisplay().substring(getPathLower().lastIndexOf('/') + 1) + " : dir";
     }
 }
