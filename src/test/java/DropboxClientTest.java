@@ -1,17 +1,44 @@
+import com.dropbox.core.DbxException;
 import model.DropboxAccount;
 import model.DropboxFileMetadata;
 import model.DropboxFolderEntries;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import static junit.framework.Assert.*;
 
 public class DropboxClientTest {
-    DropboxClientService dropboxClientService = new DropboxClientService();
-    private final static String ACCESS_TOKEN = "R4Lp_bVT52AAAAAAAAAApeELXnnLFFTqmYdL9s98grfHIj6KMB21QoWRCt5vWPXp";
+    static DropboxClientService dropboxClientService = new DropboxClientService();
+
+    private static String accessToken = "";
+
+    @BeforeClass
+    public static void setUp() throws IOException, DbxException {
+        try {
+            FileReader reader = new FileReader("token.txt");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                accessToken = line;
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
-    void getCurrentAccount() {
-        DropboxAccount dropboxAccount = dropboxClientService.getCurrentAccount(new String[]{"info", ACCESS_TOKEN});
+    public void getCurrentAccount() throws FileNotFoundException {
+
+        DropboxAccount dropboxAccount = dropboxClientService.getCurrentAccount(new String[]{"info", accessToken});
         assertEquals("Jawad", dropboxAccount.getName().getGivenName());
         assertEquals("Almarhoon", dropboxAccount.getName().getSurname());
         assertEquals("Jawad", dropboxAccount.getName().getFamiliarName());
@@ -30,8 +57,8 @@ public class DropboxClientTest {
     }
 
     @Test
-    void getListFolder() {
-        DropboxFolderEntries folderEntries = dropboxClientService.getListFolder(new String[]{"list", ACCESS_TOKEN, "/Docs"});
+    public void getListFolder() {
+        DropboxFolderEntries folderEntries = dropboxClientService.getListFolder(new String[]{"list", accessToken, "/Docs"});
 
         assertEquals("Test", folderEntries.getEntries().get(0).getName());
         assertEquals("/docs/test", folderEntries.getEntries().get(0).getPathLower());
@@ -60,8 +87,8 @@ public class DropboxClientTest {
     }
 
     @Test
-    void getMetadata() {
-        DropboxFileMetadata dropboxFileMetadata = dropboxClientService.getMetadata(new String[]{"list", ACCESS_TOKEN, "/Docs/HelloWorld.java"});
+    public void getMetadata() {
+        DropboxFileMetadata dropboxFileMetadata = dropboxClientService.getMetadata(new String[]{"list", accessToken, "/Docs/HelloWorld.java"});
 
         assertEquals("HelloWorld.java", dropboxFileMetadata.getName());
         assertEquals("/docs/helloworld.java", dropboxFileMetadata.getPathLower());

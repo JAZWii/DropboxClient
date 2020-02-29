@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Locale;
 
 public class DropboxClientService {
@@ -39,6 +40,11 @@ public class DropboxClientService {
             DbxAuthFinish authFinish = webAuth.finish(code);
             String accessToken = authFinish.getAccessToken();
             System.out.println("Your access token:" + accessToken);
+
+            PrintWriter writer = new PrintWriter("token.txt", "UTF-8");
+            writer.println(accessToken);
+            writer.close();
+
         } catch (Exception ex) {
             System.out.println("An Error has accorded, please try again with correct parameters!");
         } finally {
